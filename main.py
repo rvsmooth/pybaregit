@@ -44,7 +44,7 @@ is_yes = result.stdout.strip()
 if is_yes == "yes":
     subprocess.run(git_cmd_untracked)
 
-if len(sys.argv) > 1:
+if len(sys.argv) == "1":
     if sys.argv[1] == "commit":
         config(commit=True)
 else:
