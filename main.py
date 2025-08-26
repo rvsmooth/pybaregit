@@ -36,7 +36,16 @@ def config(commit=None):
         subprocess.run(cmd)
 
 
-if sys.argv[1] == "commit":
-    config(commit=True)
+check_untracked_config = git_cmd_untracked[:5]
+
+result = subprocess.run(check_untracked_config, capture_output=True, text=True)
+is_yes = result.stdout.strip()
+
+if is_yes == "yes":
+    subprocess.run(git_cmd_untracked)
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == "commit":
+        config(commit=True)
 else:
     config()
